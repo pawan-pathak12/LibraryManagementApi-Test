@@ -20,9 +20,10 @@ public class Program
             app.MapOpenApi();
         }
 
+        app.MapControllers();
         app.UseHttpsRedirection();
         app.UseAuthorization();
-        
+
         app.Run();
     }
 }
