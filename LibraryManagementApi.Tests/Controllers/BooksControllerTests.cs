@@ -1,8 +1,11 @@
 ﻿using LibraryManagementApi.Interfaces;
+using LibraryManagementApi.Models;
 using LibraryManagementApi.Tests.Fakes;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
+using System.Text;
+using System.Text.Json;
 
 namespace LibraryManagementApi.Tests.Controllers
 {
@@ -16,6 +19,8 @@ namespace LibraryManagementApi.Tests.Controllers
             var factory = new WebApplicationFactory<Program>();
             _httpClient = factory.CreateClient();
         }
+
+        #region Get EndPoint testing 
         [TestMethod]
         public async Task GetBooks_ReturnOk()
         {
@@ -61,5 +66,34 @@ namespace LibraryManagementApi.Tests.Controllers
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
 
         }
+
+        #endregion
+
+        #region Product Post EndPoint test 
+
+        [TestMethod]
+        public async Task CreateBook_ValidBook_ReturnCreated()
+        {
+            //Arrange 
+            var newBook = new Book
+            {
+                Title = "The Pragmatic Programmer",
+                Author = "Andrew Hunt",
+                Price = 600
+            };
+
+            var content = new StringContent(
+                JsonSerializer.Serialize(newBook),
+                Encoding.UTF8,
+                "application/json"
+             );
+
+            //Act 
+            var response = await _httpClient.PostAsync("/api/books", content);
+
+            //Assert 
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+        }
+        #endregion
     }
 }

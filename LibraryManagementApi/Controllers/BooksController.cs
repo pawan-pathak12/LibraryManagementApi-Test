@@ -1,4 +1,5 @@
 ﻿using LibraryManagementApi.Interfaces;
+using LibraryManagementApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementApi.Controllers
@@ -21,6 +22,12 @@ namespace LibraryManagementApi.Controllers
                 return NoContent();
 
             return Ok(books);
+        }
+        [HttpPost]
+        public IActionResult Post(Book book)
+        {
+            _bookService.Add(book);
+            return Created("/api/books", book);
         }
     }
 }
