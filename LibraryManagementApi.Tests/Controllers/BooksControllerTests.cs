@@ -94,6 +94,31 @@ namespace LibraryManagementApi.Tests.Controllers
             //Assert 
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
+
+        [TestMethod]
+        public async Task CreateBook_InvalidBook_ReturnsBadRequest()
+        {
+            //Arrange 
+            var invalidBook = new Book
+            {
+                Title = "",
+                Author = "",
+                Price = 0
+            };
+
+            var content = new StringContent(
+                JsonSerializer.Serialize(invalidBook),
+                Encoding.UTF8,
+                "application/json"
+             );
+
+            //Act 
+            var response = await _httpClient.PostAsync("/api/books", content);
+
+            //Assert 
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+
+        }
         #endregion
     }
 }

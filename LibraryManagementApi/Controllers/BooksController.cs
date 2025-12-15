@@ -26,6 +26,12 @@ namespace LibraryManagementApi.Controllers
         [HttpPost]
         public IActionResult Post(Book book)
         {
+            if (string.IsNullOrWhiteSpace(book.Title) ||
+                string.IsNullOrWhiteSpace(book.Author) ||
+                book.Price <= 0)
+            {
+                return BadRequest();
+            }
             _bookService.Add(book);
             return Created("/api/books", book);
         }
