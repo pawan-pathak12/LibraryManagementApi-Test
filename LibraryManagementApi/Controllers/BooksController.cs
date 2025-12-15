@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LibraryManagementApi.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementApi.Controllers
 {
@@ -9,7 +10,11 @@ namespace LibraryManagementApi.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
+            var books = new List<Book>
+            {
+                new Book{Id=1 , Title ="Clean Code" , Author="Nothing " , Price =500}
+            };
+            return Ok(books);
         }
     }
 }

@@ -22,5 +22,18 @@ namespace LibraryManagementApi.Tests.Controllers
             //Assert 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
+
+        [TestMethod]
+        public async Task GetBooks_ReturnBookList()
+        {
+            //Act 
+            var response = await _httpClient.GetAsync("/api/books");
+
+            //Assert 
+            response.EnsureSuccessStatusCode();
+
+            var context = await response.Content.ReadAsStringAsync();
+            Assert.IsFalse(string.IsNullOrWhiteSpace(context));
+        }
     }
 }
