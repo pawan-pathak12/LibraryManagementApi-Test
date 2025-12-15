@@ -1,3 +1,6 @@
+using LibraryManagementApi.Interfaces;
+using LibraryManagementApi.Services;
+
 namespace LibraryManagementApi;
 
 public class Program
@@ -11,7 +14,7 @@ public class Program
         builder.Services.AddControllers();
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
-
+        builder.Services.AddScoped<IBookService, BookService>();
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

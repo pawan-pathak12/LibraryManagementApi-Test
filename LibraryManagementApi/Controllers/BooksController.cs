@@ -1,4 +1,4 @@
-﻿using LibraryManagementApi.Models;
+﻿using LibraryManagementApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryManagementApi.Controllers
@@ -7,13 +7,15 @@ namespace LibraryManagementApi.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
+        private readonly IBookService _bookService;
+        public BooksController(IBookService bookService)
+        {
+            _bookService = bookService;
+        }
         [HttpGet]
         public IActionResult Get()
         {
-            var books = new List<Book>
-            {
-                new Book{Id=1 , Title ="Clean Code" , Author="Nothing " , Price =500}
-            };
+            var books = _bookService.GetAll();
             return Ok(books);
         }
     }
