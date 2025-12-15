@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using LibraryManagementApi.Interfaces;
+using LibraryManagementApi.Tests.Fakes;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 
 namespace LibraryManagementApi.Tests.Controllers
@@ -34,6 +37,29 @@ namespace LibraryManagementApi.Tests.Controllers
 
             var context = await response.Content.ReadAsStringAsync();
             Assert.IsFalse(string.IsNullOrWhiteSpace(context));
+        }
+
+        [TestMethod]
+        public async Task GetBooks_WhenNoBooks_ReturnNoContent()
+        {
+            //Arrange 
+            var factory = new WebApplicationFactory<Program>()
+              .WithWebHostBuilder(builder =>
+              {
+                  builder.ConfigureServices(services =>
+                  {
+                      services.AddScoped<IBookService, EmptyBookService>();
+                  });
+              });
+
+            var client = factory.CreateClient();
+
+            //Act 
+            var response = await client.GetAsync("/api/books");
+
+            //Assert 
+            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
+
         }
     }
 }

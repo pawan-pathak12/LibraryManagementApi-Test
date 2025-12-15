@@ -16,6 +16,10 @@ namespace LibraryManagementApi.Controllers
         public IActionResult Get()
         {
             var books = _bookService.GetAll();
+
+            if (!books.Any())
+                return NoContent();
+
             return Ok(books);
         }
     }
