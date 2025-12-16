@@ -1,16 +1,22 @@
-﻿namespace LibraryManagementApi.Tests.ServiceTests
+﻿using LibraryManagementApi.Services;
+
+namespace LibraryManagementApi.Tests.ServiceTests
 {
     [TestClass]
     public class MemberServiceTests
     {
         private readonly MemberService _memberService;
+        public MemberServiceTests()
+        {
+            _memberService = new MemberService();
+        }
         [TestMethod]
         public async Task CreateMember_ValidData_ReturnsMember()
         {
             //Arrange 
-            var name = "Ram";
-            var email = "ram@gmail.com";
-            var phone = 9812345678;
+            string name = "Ram";
+            string email = "ram@gmail.com";
+            long phone = 9812345678;
             //Act 
             var member = _memberService.CreateMember(name, email, phone);
 
