@@ -1,5 +1,7 @@
+using LibraryManagementApi.Data;
 using LibraryManagementApi.Interfaces;
 using LibraryManagementApi.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagementApi;
 
@@ -12,7 +14,13 @@ public class Program
         // Add services to the container.
         builder.Services.AddAuthorization();
         builder.Services.AddControllers();
-        // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+        builder.Services.AddDbContext<LibraryDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+
+
         builder.Services.AddOpenApi();
         builder.Services.AddScoped<IBookService, BookService>();
         var app = builder.Build();

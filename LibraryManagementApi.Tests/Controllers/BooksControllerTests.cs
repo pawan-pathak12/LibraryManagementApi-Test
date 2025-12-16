@@ -1,7 +1,9 @@
-﻿using LibraryManagementApi.Interfaces;
+﻿using LibraryManagementApi.Data;
+using LibraryManagementApi.Interfaces;
 using LibraryManagementApi.Models;
 using LibraryManagementApi.Tests.Fakes;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Text;
@@ -16,9 +18,32 @@ namespace LibraryManagementApi.Tests.Controllers
 
         public BooksControllerTests()
         {
-            var factory = new WebApplicationFactory<Program>();
+            var factory = new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder =>
+                {
+                    builder.ConfigureServices(services =>
+                    {
+                        services.AddDbContext<LibraryDbContext>(options =>
+                            options.UseInMemoryDatabase("TestDb"));
+
+                        var provider = services.BuildServiceProvider();
+                        using var scope = provider.CreateScope();
+                        var context = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
+
+                        context.Books.Add(new Book
+                        {
+                            Title = "Clean Code",
+                            Author = "Robert C. Martin",
+                            Price = 500
+                        });
+
+                        context.SaveChanges();
+                    });
+                });
+
             _httpClient = factory.CreateClient();
         }
+
 
         #region Get EndPoint testing 
         [TestMethod]
