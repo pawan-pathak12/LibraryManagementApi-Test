@@ -19,6 +19,10 @@ namespace LibraryManagementApi.Controllers
         public IActionResult Create(Member member)
         {
             var created = _memberService.CreateMember(member.Name, member.Email, member.Phone);
+            if (created == null)
+            {
+                return BadRequest();
+            }
             return Ok(created);
         }
         [HttpGet]
@@ -30,14 +34,19 @@ namespace LibraryManagementApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-
+            int ids = 1;
             string name = "ram";
             string email = "ram";
             long phone = 9812346588;
 
-            var member = _memberService.CreateMember(id, name, email, phone);
+            var member = _memberService.CreateMember(ids, name, email, phone);
 
             var result = _memberService.GetMemberById(id);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
 
             return Ok(result);
         }

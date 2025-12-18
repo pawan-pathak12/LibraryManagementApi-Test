@@ -118,7 +118,26 @@ namespace LibraryManagementApi.Tests.ServiceTests
             //Assert 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
+
+        [TestMethod]
+        public async Task CreateMember_ReturnBadRequest_IfValidationFails()
+        {
+            var member = new Member
+            {
+                Id = 1,
+                Name = " ",
+                Email = "ram@gmail.com",
+                Phone = 981234567
+            };
+
+            var result = await _client.PostAsJsonAsync("/api/member", member);
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, result.StatusCode);
+
+        }
         #endregion
+
+
 
         #endregion
 
@@ -176,6 +195,15 @@ namespace LibraryManagementApi.Tests.ServiceTests
             var response = await _client.GetAsync($"/api/member/{id}");
 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [TestMethod]
+        public async Task GetMemberById_DontExists_ReturnNotFound()
+        {
+            int id = 2;
+            var response = await _client.GetAsync($"/api/member/{id}");
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         #endregion
