@@ -14,6 +14,9 @@ namespace LibraryManagementApi.Tests.ServiceTests
             _memberService = new MemberService();
         }
 
+        #region Create Member Member
+
+        //Service Tests
         #region First Test step 1-3
 
         [TestMethod]
@@ -86,6 +89,7 @@ namespace LibraryManagementApi.Tests.ServiceTests
 
         #endregion
 
+        //API test 
         #region Step 6 -API Layer (controller)
         //API Testing
         private HttpClient _client;
@@ -114,6 +118,68 @@ namespace LibraryManagementApi.Tests.ServiceTests
             //Assert 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
+        #endregion
+
+        #endregion
+
+        #region Get Member
+
+
+        #region  Service test
+        [TestMethod]
+        public void GetAllMembers_ReturnList_OfMembers()
+        {
+            var result = _memberService.GetAllMembers();
+
+            //Assert 
+            Assert.IsNotNull(result);
+            Assert.AreNotEqual(0, result.Count());
+        }
+
+        [TestMethod]
+        public void GetMemberById_Return_OneMember()
+        {
+            //Arrange 
+            var id = 1;
+            var name = "Ram Nath";
+            var email = "ramnath@gmail.com";
+            var number = 9812345654;
+
+            var member = _memberService.CreateMember(id, name, email, number);
+
+            //Act 
+
+            var memberById = _memberService.GetMemberById(id);
+
+            //Assert 
+
+            Assert.IsNotNull(memberById);
+            Assert.AreEqual(id, memberById.Id);
+
+        }
+        #endregion
+
+        #region  API test
+        [TestMethod]
+        public async Task GetMember_ReturnOk()
+        {
+            var response = await _client.GetAsync("/api/member");
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [TestMethod]
+        public async Task GetMemberById_1_ReturnsOk()
+        {
+            int id = 1;
+
+            var response = await _client.GetAsync($"/api/member/{id}");
+
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        #endregion
+
         #endregion
 
     }

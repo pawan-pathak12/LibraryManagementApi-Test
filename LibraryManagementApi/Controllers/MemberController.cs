@@ -21,6 +21,25 @@ namespace LibraryManagementApi.Controllers
             var created = _memberService.CreateMember(member.Name, member.Email, member.Phone);
             return Ok(created);
         }
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var result = _memberService.GetAllMembers();
+            return Ok(result);
+        }
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
 
+            string name = "ram";
+            string email = "ram";
+            long phone = 9812346588;
+
+            var member = _memberService.CreateMember(id, name, email, phone);
+
+            var result = _memberService.GetMemberById(id);
+
+            return Ok(result);
+        }
     }
 }
