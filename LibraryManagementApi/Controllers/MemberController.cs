@@ -36,10 +36,14 @@ namespace LibraryManagementApi.Controllers
         {
             int ids = 1;
             string name = "ram";
-            string email = "ram";
+            string email = "ram@gmail.com";
             long phone = 9812346588;
 
             var member = _memberService.CreateMember(ids, name, email, phone);
+            if (!member)
+            {
+                return BadRequest();
+            }
 
             var result = _memberService.GetMemberById(id);
 

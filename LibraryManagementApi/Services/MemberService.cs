@@ -23,6 +23,10 @@ namespace LibraryManagementApi.Services
             {
                 throw new ArgumentException("Number length should be equal to 10");
             }
+            if (!(email.Contains("@") && email.Contains(".")))
+            {
+                return null;
+            }
             return new Member
             {
                 Name = name,
@@ -31,29 +35,26 @@ namespace LibraryManagementApi.Services
             };
 
         }
-        public Member CreateMember(int id, string name, string email, long phone)
+        public bool CreateMember(int id, string name, string email, long phone)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                return null;
+                return false;
             }
             if (string.IsNullOrWhiteSpace(email))
             {
-                return null;
+                return false;
             }
             if (phone.ToString().Length < 10)
             {
                 throw new ArgumentException("Number length should be equal to 10");
             }
-            members.Add(new Member { Id = id, Name = name, Email = email, Phone = phone });
-
-            return new Member
+            if (!(email.Contains("@") && email.Contains(".")))
             {
-                Id = id,
-                Name = name,
-                Email = email,
-                Phone = phone
-            };
+                return false;
+            }
+            members.Add(new Member { Id = 1, Name = name, Email = email, Phone = phone });
+            return true;
 
         }
         public List<Member> GetAllMembers()

@@ -16,8 +16,7 @@ namespace LibraryManagementApi.Tests.ServiceTests
 
         #region Create Member Member
 
-        //Service Tests
-        #region First Test step 1-3
+        #region   Service Tests
 
         [TestMethod]
         public void CreateMember_ValidData_ReturnStudent()
@@ -37,12 +36,7 @@ namespace LibraryManagementApi.Tests.ServiceTests
             Assert.AreEqual(phone, member.Phone);
         }
 
-        #endregion
-
-        #region Steo 4 and 5 (Validation-red -green) 
-
         [TestMethod]
-
         public void CreateMember_IfNullName_ReturnNull()
         {
             //Arrange 
@@ -87,11 +81,25 @@ namespace LibraryManagementApi.Tests.ServiceTests
             );
         }
 
+        [TestMethod]
+        public void CreateMember_ReturnFalse_IfEmailIsInvalid()
+        {
+            var member = new Member
+            {
+                Id = 1,
+                Name = "Kiran",
+                Email = "kirangmail.com",
+                Phone = 9812345989
+            };
+
+            var createdMember = _memberService.CreateMember(member.Id, member.Name, member.Email, member.Phone);
+
+            Assert.IsFalse(createdMember);
+        }
+
         #endregion
 
-        //API test 
-        #region Step 6 -API Layer (controller) Post
-        //API Testing
+        #region API test 
         private HttpClient _client;
 
         [TestInitialize]
@@ -137,9 +145,9 @@ namespace LibraryManagementApi.Tests.ServiceTests
         }
         #endregion
 
-
-
         #endregion
+
+
 
         #region Get Member
 
