@@ -18,8 +18,8 @@ namespace LibraryManagementApi.Controllers
         [HttpPost]
         public IActionResult Create(Member member)
         {
-            var created = _memberService.CreateMember(member.Name, member.Email, member.Phone);
-            if (created == null)
+            var created = _memberService.CreateMember(member.Id, member.Name, member.Email, member.Phone);
+            if (!created)
             {
                 return BadRequest();
             }

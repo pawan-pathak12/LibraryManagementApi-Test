@@ -53,6 +53,10 @@ namespace LibraryManagementApi.Services
             {
                 return false;
             }
+            if (members.Any(x => x.Email == email.ToLower()))
+            {
+                return false;
+            }
             members.Add(new Member { Id = 1, Name = name, Email = email, Phone = phone });
             return true;
 
