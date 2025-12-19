@@ -62,5 +62,18 @@ namespace LibraryManagementApi.Controllers
 
             return Ok(isUpdated);
         }
+
+        [HttpDelete("{id}")]
+
+        public IActionResult Delete(int id)
+        {
+            var isDeleted = _memberService.DeleteMember(id);
+
+            if (!isDeleted)
+            {
+                return NotFound();
+            }
+            return Ok(isDeleted);
+        }
     }
 }

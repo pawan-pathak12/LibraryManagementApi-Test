@@ -266,5 +266,56 @@ namespace LibraryManagementApi.Tests.ServiceTests
 
         #endregion
 
+        #region Delete
+
+        #region Service Testing 
+        [TestMethod]
+        public void DeleteMember_WithExistingId_ReturnsTrue()
+        {
+            int id = 1;
+
+            var isDeleted = _memberService.DeleteMember(id);
+
+            Assert.IsTrue(isDeleted);
+
+        }
+        [TestMethod]
+        public void DeleteMember_WithNonExistingId_ReturnsFalse()
+        {
+            int id = 5;
+
+            var isDeleted = _memberService.DeleteMember(id);
+
+            Assert.IsFalse(isDeleted);
+
+        }
+
+        #endregion
+
+        #region API
+
+        [TestMethod]
+        public async Task DeleteMember_ExistingId_ReturnsOk()
+        {
+            int id = 1;
+
+            var isDeleted = await _client.DeleteAsync($"/api/member/{id}");
+
+            Assert.AreEqual(HttpStatusCode.OK, isDeleted.StatusCode);
+        }
+
+        [TestMethod]
+        public async Task DeleteMember_NonExistingId_ReturnsNotFound()
+        {
+            var id = 5;
+
+            var isdeleted = await _client.DeleteAsync($"/api/member/{id}");
+
+            Assert.AreEqual(HttpStatusCode.NotFound, isdeleted.StatusCode);
+        }
+        #endregion
+
+        #endregion
+
     }
 }

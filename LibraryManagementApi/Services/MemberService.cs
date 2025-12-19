@@ -91,5 +91,20 @@ namespace LibraryManagementApi.Services
 
             return true;
         }
+
+        public bool DeleteMember(int id)
+        {
+            members.Add(new Member { Id = 1, Name = "ram", Email = "ramemail", Phone = 9862344 });
+            members.Add(new Member { Id = 2, Name = "null", Email = "null@gmail.com", Phone = 2262344 });
+
+            var existingMember = GetMemberById(id);
+            if (existingMember == null)
+            {
+                return false;
+            }
+
+            members.Remove(existingMember);
+            return true;
+        }
     }
 }
