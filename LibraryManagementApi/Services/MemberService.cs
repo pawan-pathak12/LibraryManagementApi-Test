@@ -77,5 +77,19 @@ namespace LibraryManagementApi.Services
             }
             return null;
         }
+
+        public bool UpdateMember(Member member)
+        {
+            members.Add(new Member { Id = 1, Name = "ram", Email = "ramemail", Phone = 9862344 });
+            var existingMember = GetMemberById(member.Id);
+            if (existingMember == null)
+            {
+                return false;
+            }
+            existingMember.Name = member.Name;
+            existingMember.Email = member.Email;
+
+            return true;
+        }
     }
 }

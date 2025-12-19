@@ -90,7 +90,7 @@ namespace LibraryManagementApi.Tests.ServiceTests
         #endregion
 
         //API test 
-        #region Step 6 -API Layer (controller)
+        #region Step 6 -API Layer (controller) Post
         //API Testing
         private HttpClient _client;
 
@@ -204,6 +204,62 @@ namespace LibraryManagementApi.Tests.ServiceTests
             var response = await _client.GetAsync($"/api/member/{id}");
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Update 
+
+        #region Serice test
+        [TestMethod]
+        public void UpdateMember_WithExisitingId_ReturnsTrue()
+        {
+            var member = new Member
+            {
+                Id = 1,
+                Name = "nothing",
+                Email = "nothing@gmail.com",
+                Phone = 1234567890
+            };
+
+            var isUpdated = _memberService.UpdateMember(member);
+
+            Assert.IsTrue(isUpdated);
+
+        }
+
+        #endregion
+
+        #region API 
+        [TestMethod]
+        public async Task UpdateMember_Return_Ok()
+        {
+            var member = new Member
+            {
+                Id = 1,
+                Name = "name",
+                Email = "email",
+                Phone = 1234543211
+            };
+            var isUpdated = await _client.PutAsJsonAsync("/api/member", member);
+
+            Assert.AreEqual(HttpStatusCode.OK, isUpdated.StatusCode);
+        }
+        [TestMethod]
+        public async Task UpdateMember_WithNotexisitngId_Return_NotFound()
+        {
+            var member = new Member
+            {
+                Id = 2,
+                Name = "name",
+                Email = "email",
+                Phone = 1234543211
+            };
+            var isUpdated = await _client.PutAsJsonAsync("/api/member", member);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, isUpdated.StatusCode);
         }
 
         #endregion

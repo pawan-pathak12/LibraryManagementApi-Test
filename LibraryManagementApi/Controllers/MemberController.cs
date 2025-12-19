@@ -50,5 +50,17 @@ namespace LibraryManagementApi.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut]
+        public IActionResult Update(Member member)
+        {
+            var isUpdated = _memberService.UpdateMember(member);
+            if (!isUpdated)
+            {
+                return NotFound();
+            }
+
+            return Ok(isUpdated);
+        }
     }
 }
