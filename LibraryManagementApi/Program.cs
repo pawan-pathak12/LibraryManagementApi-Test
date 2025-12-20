@@ -1,5 +1,5 @@
 using LibraryManagementApi.Data;
-using LibraryManagementApi.Interfaces;
+using LibraryManagementApi.Interfaces.IServices;
 using LibraryManagementApi.Services;
 using Microsoft.EntityFrameworkCore;
 

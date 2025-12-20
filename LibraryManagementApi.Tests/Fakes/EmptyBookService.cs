@@ -1,4 +1,4 @@
-﻿using LibraryManagementApi.Interfaces;
+﻿using LibraryManagementApi.Interfaces.IServices;
 using LibraryManagementApi.Models;
 
 namespace LibraryManagementApi.Tests.Fakes

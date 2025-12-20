@@ -1,4 +1,4 @@
-﻿using LibraryManagementApi.Interfaces;
+﻿using LibraryManagementApi.Interfaces.IServices;
 using LibraryManagementApi.Models;
 using Microsoft.AspNetCore.Mvc;
 

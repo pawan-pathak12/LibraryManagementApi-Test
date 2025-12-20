@@ -1,5 +1,5 @@
 ﻿using LibraryManagementApi.Data;
-using LibraryManagementApi.Interfaces;
+using LibraryManagementApi.Interfaces.IServices;
 using LibraryManagementApi.Models;
 using LibraryManagementApi.Tests.Fakes;
 using Microsoft.AspNetCore.Mvc.Testing;

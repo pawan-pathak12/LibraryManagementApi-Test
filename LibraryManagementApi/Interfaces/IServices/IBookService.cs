@@ -1,6 +1,6 @@
 ﻿using LibraryManagementApi.Models;
 
-namespace LibraryManagementApi.Interfaces
+namespace LibraryManagementApi.Interfaces.IServices
 {
     public interface IBookService
     {
