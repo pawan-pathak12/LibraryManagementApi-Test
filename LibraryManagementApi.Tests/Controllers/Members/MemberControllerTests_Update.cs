@@ -32,7 +32,7 @@ namespace LibraryManagementApi.Tests.Controllers.Members
             Assert.AreEqual(HttpStatusCode.OK, isUpdated.StatusCode);
         }
         [TestMethod]
-        public async Task UpdateMember_WithNotexisitngId_Return_NotFound()
+        public async Task UpdateMember_WithNotexisitngId_ReturnNotFound()
         {
             var member = new Member
             {

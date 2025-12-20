@@ -36,7 +36,7 @@ namespace LibraryManagementApi.Tests.Controllers.Members
         }
 
         [TestMethod]
-        public async Task CreateMember_ReturnBadRequest_IfValidationFails()
+        public async Task CreateMember_IfValidationFails_ReturnsBadRequest()
         {
             var member = new Member
             {

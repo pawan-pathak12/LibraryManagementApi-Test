@@ -12,7 +12,7 @@ namespace LibraryManagementApi.Tests.Services.Members
         }
         #region  Service test
         [TestMethod]
-        public void GetAllMembers_ReturnList_OfMembers()
+        public void GetAllMembers_OfMembers_ReturnList()
         {
             var result = _memberService.GetAllMembers();
 
@@ -22,7 +22,7 @@ namespace LibraryManagementApi.Tests.Services.Members
         }
 
         [TestMethod]
-        public void GetMemberById_Return_OneMember()
+        public void GetMemberById_OneMember_WillReturned()
         {
             //Arrange 
             var id = 1;

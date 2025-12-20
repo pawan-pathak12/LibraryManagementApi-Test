@@ -26,6 +26,7 @@ namespace LibraryManagementApi.Tests.Services.Members
             var member = _memberService.CreateMember(name, email, phone);
 
             //Assert 
+
             Assert.IsNotNull(member);
             Assert.AreEqual(name, member.Name);
             Assert.AreEqual(email, member.Email);
@@ -78,7 +79,7 @@ namespace LibraryManagementApi.Tests.Services.Members
         }
 
         [TestMethod]
-        public void CreateMember_ReturnFalse_IfEmailIsInvalid()
+        public void CreateMember_IfEmailIsInvalid_ReturnFalse()
         {
             var member = new Member
             {
@@ -94,7 +95,7 @@ namespace LibraryManagementApi.Tests.Services.Members
         }
 
         [TestMethod]
-        public void CreateMember_ReturnFalse_IfEmailIsDuplicate()
+        public void CreateMember_IfEmailIsDuplicate_ReturnFalse()
         {
             int id = 1;
             string name = "Ram";
