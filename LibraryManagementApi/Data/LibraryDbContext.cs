@@ -10,5 +10,6 @@ namespace LibraryManagementApi.Data
         }
 
         public DbSet<Book> Books => Set<Book>();
+        public DbSet<Author> Authors => Set<Author>();
     }
 }
